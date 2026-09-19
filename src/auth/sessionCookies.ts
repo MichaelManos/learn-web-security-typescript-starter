@@ -15,7 +15,8 @@ export function setSessionCookie(
   response: Response,
   session: CookieSession,
 ): void {
-  response.cookie(SESSION_COOKIE_NAME, session.token, sessionCookieOptions);
+  const exp_date = new Date(session.expires_at);
+  response.cookie(SESSION_COOKIE_NAME, session.token, {...sessionCookieOptions, expires: exp_date});
 }
 
 export function clearSessionCookie(response: Response): void {
